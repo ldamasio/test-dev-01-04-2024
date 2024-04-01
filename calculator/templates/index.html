@@ -3,7 +3,7 @@
 {% block title %}Consumo de Energia{% endblock %}
 
 {% block content %}
-    <form method="POST">
+    <form method="POST" action="{% url 'calc' %}" enctype="multipart/form-data">
         {% csrf_token %}
         <label for="month1">Consumo de energia - Mês 1:</label>
         <input type="text" id="month1" name="month1"><br><br>
@@ -24,6 +24,6 @@
             <option value="industrial">Industrial</option>
         </select><br><br>
 
-        <input type="submit" value="Submit">
+        <input type="submit" value="Calcular Economia">
     </form>
 {% endblock %}

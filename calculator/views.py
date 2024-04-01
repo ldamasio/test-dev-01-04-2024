@@ -1,4 +1,10 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.template import RequestContext
+from .forms import CalcForm
+from .models import Consumer, DiscountRules
+
+from django.views.decorators.csrf import csrf_protect
 
 def index(request):
     return render(request, 'index.html')
@@ -12,9 +18,10 @@ def index(request):
 -> Send the data to the template that will be rendered
 """
 
-
-def view1(request):
+@csrf_protect
+def calc(request):
     # Create the first view here.
+
     pass
 
 
