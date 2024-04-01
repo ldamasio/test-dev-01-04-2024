@@ -14,29 +14,36 @@ def discount(consumption, tax_type):
 
     if tax_type == "RESIDENCIAL":
         if average_consumption < 10000:
-            applied_discount = 18
+            applied_discount = 0.18
         elif average_consumption > 20000:
-            applied_discount = 25
+            applied_discount = 0.25
         else:
-            applied_discount = 22
+            applied_discount = 0.22
     elif tax_type == "COMERCIAL":
         if average_consumption < 10000:
-            applied_discount = 16
+            applied_discount = 0.16
         elif average_consumption > 20000:
-            applied_discount = 22
+            applied_discount = 0.22
         else:
-            applied_discount = 18
+            applied_discount = 0.18
     elif tax_type == "INDUSTRIAL":
         if average_consumption < 10000:
-            applied_discount = 12
+            applied_discount = 0.12
         elif average_consumption > 20000:
-            applied_discount = 18
+            applied_discount = 0.18
         else:
-            applied_discount = 15
+            applied_discount = 0.15
     else:
         raise KeyError('Tipo de tarifa não categorizado!')
 
-    return applied_discount
+    if average_consumption < 10000:
+        coverage = 0.9
+    elif average_consumption > 20000:
+        coverage = 0.99
+    else:
+        coverage = 0.95
+
+    return (applied_discount, coverage)
 
 def calculator(consumption: list, distributor_tax: float, tax_type: str) -> tuple:
     """
@@ -49,13 +56,16 @@ def calculator(consumption: list, distributor_tax: float, tax_type: str) -> tupl
 
     # your code here #
 
-    applied_discount = discount(consumption, tax_type)
-    print (applied_discount)
+    applied_discount = discount(consumption, tax_type.upper())
 
-    print (consumption)
-    print ('Actual tax', distributor_tax)
-    print (tax_type)
 
+
+    print (
+        round(annual_savings, 2),
+        round(monthly_savings, 2),
+        applied_discount,
+        coverage,
+    )
 
 
     return (
