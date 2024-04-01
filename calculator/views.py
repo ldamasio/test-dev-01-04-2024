@@ -1,5 +1,9 @@
 from django.shortcuts import render
 
+def index(request):
+    return render(request, 'index.html')
+
+
 # TODO: Your list view should do the following tasks
 """
 -> Recover all consumers from the database
