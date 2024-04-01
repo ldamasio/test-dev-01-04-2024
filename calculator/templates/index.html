@@ -1,22 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Web App</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <header>
-        <h1>Welcome to My Web App</h1>
-    </header>
-    <main>
-        <section id="content">
-            <!-- Content will go here -->
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2024 My Web App</p>
-    </footer>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Consumo de Energia{% endblock %}
+
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        <label for="month1">Consumo de energia - Mês 1:</label>
+        <input type="text" id="month1" name="month1"><br><br>
+
+        <label for="month2">Consumo de energia - Mês 2:</label>
+        <input type="text" id="month2" name="month2"><br><br>
+
+        <label for="month3">Consumo de energia - Mês 3:</label>
+        <input type="text" id="month3" name="month3"><br><br>
+
+        <label for="tax">Selecione o valor da tarifa da distribuidora:</label>
+        <input type="text" id="tax" name="tax"><br><br>
+
+        <label for="tax_type">Tipo de tarifa:</label>
+        <select id="tax_type" name="tax_type">
+            <option value="commercial">Commercial</option>
+            <option value="residential">Residential</option>
+            <option value="industrial">Industrial</option>
+        </select><br><br>
+
+        <input type="submit" value="Submit">
+    </form>
+{% endblock %}

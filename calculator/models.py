@@ -13,6 +13,57 @@ class Consumer(models.Model):
     )
     #  create the foreign key for discount rule model here
 
+    def __str__(self):
+        return self.name
+
+class DiscountRules(models.Model):
+
+    RESIDENCIAL = 'Residencial'
+    COMERCIAL = 'Comercial'
+    INDUSTRIAL = 'Industrial'
+
+    LESS_THAN_10_THOUSAND = 'Less than 10 thousand'
+    BETWEEN_10_AND_20_THOUSAND = 'Between 10 thousand and 20 thousand'
+    GREATER_THAN_20_THOUSAND = 'Greater than 20 thousand'
+
+    CONSUMER_TYPE_CHOICES = [
+        (RESIDENCIAL, 'Residencial'),
+        (COMERCIAL, 'Comercial'),
+        (INDUSTRIAL, 'Industrial'),
+    ]
+
+    CONSUMPTION_RANGE_CHOICES = [
+        (LESS_THAN_10_THOUSAND, 'Less than 10 thousand'),
+        (BETWEEN_10_AND_20_THOUSAND, 'Between 10 thousand and 20 thousand'),
+        (GREATER_THAN_20_THOUSAND, 'Greater than 20 thousand'),
+    ]
+
+    COVER_VALUE_CHOICES = [
+        (90, '90%'),
+        (95, '95%'),
+        (99, '99%'),
+    ]
+
+    consumer_type = models.CharField(
+        max_length=30,
+        choices=CONSUMER_TYPE_CHOICES,
+        default=RESIDENCIAL
+    )
+
+    consumption_range = models.CharField(
+        max_length=30,
+        choices=CONSUMER_TYPE_CHOICES,
+        default=LESS_THAN_10_THOUSAND
+    )
+
+    cover_value = models.IntegerField(choices=COVER_VALUE_CHOICES, default=90)
+
+    discount_value = models.DecimalField(
+        max_digits=10, 
+        decimal_places=2, 
+        default=0
+    )
+
 
 # TODO: Create the model DiscountRules below
 """Fields:

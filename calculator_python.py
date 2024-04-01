@@ -1,3 +1,12 @@
+def discount(consumption):
+
+    if len(consumption) != 3:
+        raise KeyError('Não foram fornecidos 3 valores de consumo de energia')
+
+    average_consumption = sum(consumption) / len(consumption)
+
+    return average_consumption
+
 def calculator(consumption: list, distributor_tax: float, tax_type: str) -> tuple:
     """
     returns a tuple of floats contained anual savings, monthly savings, applied_discount and coverage
@@ -8,6 +17,15 @@ def calculator(consumption: list, distributor_tax: float, tax_type: str) -> tupl
     coverage = 0
 
     # your code here #
+
+    applied_discount = discount(consumption)
+    print (applied_discount)
+
+    print (consumption)
+    print ('Actual tax', distributor_tax)
+    print (tax_type)
+
+
 
     return (
         round(annual_savings, 2),
