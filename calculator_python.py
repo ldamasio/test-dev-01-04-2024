@@ -1,4 +1,4 @@
-def discount(consumption, tax_type):
+def discount(consumption, tax_type, distributor_tax):
 
     if len(consumption) != 3:
         raise KeyError('Não foram fornecidos 3 valores de consumo de energia!')
@@ -10,7 +10,10 @@ def discount(consumption, tax_type):
     if not tax_type:
         raise KeyError('Não foi fornecido o tipo de tarifa!')
 
-    average_consumption = sum(consumption) / len(consumption)
+    if not isinstance(distributor_tax, (int, float)):
+        raise KeyError('O valor do consumo não é inteiro nem decimal!')
+
+    average_consumption = sum(consumption) / 3
 
     if tax_type == "RESIDENCIAL":
         if average_consumption < 10000:
@@ -43,7 +46,20 @@ def discount(consumption, tax_type):
     else:
         coverage = 0.95
 
-    return (applied_discount, coverage)
+    print ('8888888888888888888888888')
+    print ('avg cons', average_consumption)
+
+    # annual_cost = (average_consumption * 12) * (distributor_tax * applied_discount)
+    # print('an cost', annual_cost)
+
+    annual_savings = (average_consumption * coverage * 12) * (distributor_tax * applied_discount)
+    print('an sav', annual_savings)
+
+    print ('8888888888888888888888888')
+
+    print 
+
+    return (applied_discount, coverage, annual_savings)
 
 def calculator(consumption: list, distributor_tax: float, tax_type: str) -> tuple:
     """
@@ -56,16 +72,9 @@ def calculator(consumption: list, distributor_tax: float, tax_type: str) -> tupl
 
     # your code here #
 
-    applied_discount = discount(consumption, tax_type.upper())
-
-
-
-    print (
-        round(annual_savings, 2),
-        round(monthly_savings, 2),
-        applied_discount,
-        coverage,
-    )
+    applied_discount, coverage, annual_savings = discount(consumption, tax_type.upper(), distributor_tax)
+    annual_savings = round (annual_savings, 2)
+    monthly_savings = round((annual_savings / 12), 2)
 
 
     return (
@@ -74,7 +83,6 @@ def calculator(consumption: list, distributor_tax: float, tax_type: str) -> tupl
         applied_discount,
         coverage,
     )
-
 
 if __name__ == "__main__":
     print("Testing...")
