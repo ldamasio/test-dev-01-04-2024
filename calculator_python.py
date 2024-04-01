@@ -1,11 +1,42 @@
-def discount(consumption):
+def discount(consumption, tax_type):
 
     if len(consumption) != 3:
-        raise KeyError('Não foram fornecidos 3 valores de consumo de energia')
+        raise KeyError('Não foram fornecidos 3 valores de consumo de energia!')
+
+    for x in consumption:
+        if not isinstance(x, (int, float)):
+            raise KeyError('O valor do consumo não é inteiro nem decimal!')
+
+    if not tax_type:
+        raise KeyError('Não foi fornecido o tipo de tarifa!')
 
     average_consumption = sum(consumption) / len(consumption)
 
-    return average_consumption
+    if tax_type == "RESIDENCIAL":
+        if average_consumption < 10000:
+            applied_discount = 18
+        elif average_consumption > 20000:
+            applied_discount = 25
+        else:
+            applied_discount = 22
+    elif tax_type == "COMERCIAL":
+        if average_consumption < 10000:
+            applied_discount = 16
+        elif average_consumption > 20000:
+            applied_discount = 22
+        else:
+            applied_discount = 18
+    elif tax_type == "INDUSTRIAL":
+        if average_consumption < 10000:
+            applied_discount = 12
+        elif average_consumption > 20000:
+            applied_discount = 18
+        else:
+            applied_discount = 15
+    else:
+        raise KeyError('Tipo de tarifa não categorizado!')
+
+    return applied_discount
 
 def calculator(consumption: list, distributor_tax: float, tax_type: str) -> tuple:
     """
@@ -18,7 +49,7 @@ def calculator(consumption: list, distributor_tax: float, tax_type: str) -> tupl
 
     # your code here #
 
-    applied_discount = discount(consumption)
+    applied_discount = discount(consumption, tax_type)
     print (applied_discount)
 
     print (consumption)
